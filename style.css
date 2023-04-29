@@ -1,0 +1,15 @@
+* {
+  font-family: "Francois One", sans-serif;
+  text-align: center;
+}
+
+h1 {
+  text-align: center;
+}
+
+body {
+  background-image: url("https://i.postimg.cc/26DtF7Yd/e7d41f1499960e91abe3e2b6868a86e7.jpg");
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+}
