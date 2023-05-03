@@ -39,10 +39,21 @@ function render() {
   renderControls();
 }
 
-function renderBoard() {}
+function renderBoard() {
+  // iterate through the first array layer and get a hold of the first array row
+  board.forEach(function (arr, index) {
+    // iterate through the each individual array and get a hold of each element
+    arr.forEach(function (elem, idx) {
+      // create a variable that will match the id assigned to every div in the board
+      const boardId = `c${index}r${idx}`; // gives me all ids --> c0r0
+      //   select the id elements using DOM
+      const boardEl = document.getElementById(boardId);
+      console.log(boardEl);
+    });
+  });
+}
+renderBoard();
 
-function renderMessage() {}
+function renderTurn() {}
 
 function renderControls() {}
-
-console.log(board);
