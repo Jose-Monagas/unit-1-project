@@ -31,6 +31,7 @@ button:hover {
   transform: scale(0.8);
   transition: transform 200ms ease-in-out;
   cursor: pointer;
+  color: rgba(0, 0, 0, 0.2);
 }
 
 #board {
@@ -44,4 +45,15 @@ button:hover {
 #board > div {
   border-radius: 15%;
   border: 0.4vmin solid black;
+}
+
+button {
+  margin-top: 5vmin;
+  padding: 1.5vmin;
+  font-size: 2vmin;
+  border-radius: 2vmin;
+  border: 0.2vmin solid black;
+  color: black;
+  background-image: url("https://i.postimg.cc/2jTxSg36/ancient-egypt-eye-of-horus-eye-of-providence-pyramid-texts-png-favpng-1c-Mxbhv-TLNniwq-F8z-Gu-FSkq-Su.jpg");
+  background-size: cover;
 }
