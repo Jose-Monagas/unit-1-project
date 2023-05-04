@@ -1,9 +1,14 @@
 /*----- constants -----*/
 // create an object that will hold any possible value that we can have in our board and its pertaining mark (either pyramid, beetle or nothing)
 const MARKS = {
-  0: "white",
+  0: `url("https://i.postimg.cc/2jTxSg36/ancient-egypt-eye-of-horus-eye-of-providence-pyramid-texts-png-favpng-1c-Mxbhv-TLNniwq-F8z-Gu-FSkq-Su.jpg")`,
   1: "black",
   "-1": "red",
+};
+
+const NAMES = {
+  1: "Pyramid",
+  "-1": "Beetle",
 };
 
 /*----- state variables -----*/
@@ -14,6 +19,8 @@ let board; // this will be a 2d array
 let winner; // this will be set to null, 1, -1, or 'T'
 
 /*----- cached elements  -----*/
+// get a hold of the h1 tag that contains the message with player turn
+const turnMessage = document.querySelector("#turn h1");
 
 /*----- event listeners -----*/
 
@@ -25,12 +32,12 @@ let winner; // this will be set to null, 1, -1, or 'T'
 init();
 
 function init() {
-  turn = -1; // first player to start the game
+  turn = 1; // first player to start the game
 
   // 2D array, 0 represents no mark at current position -- turn this -90 deg
   board = [
     [0, 0, 0], // col 0
-    [0, -1, 0], // col 1
+    [0, 0, 0], // col 1
     [0, 0, 0], // col 2
     //  r0 r1 r2
   ];
@@ -56,13 +63,19 @@ function renderBoard() {
       const boardEl = document.getElementById(boardId);
       //   user markers object to look up the color we should update the background marker div to
       // the elem parameter I'm passing represents the actual value of each element in the board
-      boardEl.style.backgroundColor = MARKS[elem];
+      boardEl.style.backgroundImage = MARKS[elem];
     });
   });
 }
 renderBoard();
 
 // This function will update current player's turn in the browser
-function renderTurn() {}
+function renderTurn() {
+  if (winner === "T") {
+  } else if (winner === 1 || winner === -1) {
+  } else {
+    turnMessage.innerHTML = `${NAMES[turn]}'s turn`;
+  }
+}
 
 function renderControls() {}

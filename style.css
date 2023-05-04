@@ -45,6 +45,8 @@ button:hover {
 #board > div {
   border-radius: 15%;
   border: 0.4vmin solid black;
+  background-size: cover;
+  padding: 1vmin;
 }
 
 button {
