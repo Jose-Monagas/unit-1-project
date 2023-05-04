@@ -1,4 +1,9 @@
 /*----- constants -----*/
+const MARKS = {
+  0: "white",
+  1: "black",
+  "-1": "red",
+};
 
 /*----- state variables -----*/
 // Declare the application-wide state variables
@@ -9,11 +14,6 @@ let winner; // this will be set to null, 1, -1, or 'T'
 
 /*----- cached elements  -----*/
 // create an object that will hold any possible value that we can have in our board and its pertaining mark (either pyramid, beetle or nothing)
-const MARKS = {
-  0: "white",
-  1: "black",
-  "-1": "red",
-};
 
 /*----- event listeners -----*/
 
@@ -62,6 +62,7 @@ function renderBoard() {
 }
 renderBoard();
 
+// This function will update current player's turn in the browser
 function renderTurn() {}
 
 function renderControls() {}
