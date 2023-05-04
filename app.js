@@ -1,4 +1,5 @@
 /*----- constants -----*/
+// create an object that will hold any possible value that we can have in our board and its pertaining mark (either pyramid, beetle or nothing)
 const MARKS = {
   0: "white",
   1: "black",
@@ -13,7 +14,6 @@ let board; // this will be a 2d array
 let winner; // this will be set to null, 1, -1, or 'T'
 
 /*----- cached elements  -----*/
-// create an object that will hold any possible value that we can have in our board and its pertaining mark (either pyramid, beetle or nothing)
 
 /*----- event listeners -----*/
 
