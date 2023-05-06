@@ -142,18 +142,23 @@ function checkRows() {
 
 function checkDiagonal() {
   // a diagonal wins means that the sum of [(0,0),(1,1),(2,2)] or [(2,0),(1,1),(0,2)] === 3 or -3
+  //   diagonals variable holds the combination oftiles in the board that would make a diagonal win
   const diagonals = [
     [board[0][0], board[1][1], board[2][2]],
     [board[2][0], board[1][1], board[0][2]],
   ];
 
+  //   use the map method to loop through the diagonals array of arrays, col represents each element row (inner array)
   const sums = diagonals.map(function (col) {
+    // use reduce to calculate the sum of each inner array
     return col.reduce(function (total, num) {
       return total + num;
     }, 0);
+    // sums array is an array with the sum of diagonals[0] and diagonals[1] at index 0 and 1, respectively
     return sums;
   });
 
+  //   evaluate the sums array to check if any player connected 3 marks, if true then that player is a winner
   if (sums[0] === 3 || sums[1] === 3) {
     return true;
   } else if (sums[0] === -3 || sums[1] === 3) {
