@@ -2,13 +2,13 @@
 // create an object that will hold any possible value that we can have in our board and its pertaining mark (either pyramid, beetle or nothing)
 const MARKS = {
   0: `url("https://i.postimg.cc/2jTxSg36/ancient-egypt-eye-of-horus-eye-of-providence-pyramid-texts-png-favpng-1c-Mxbhv-TLNniwq-F8z-Gu-FSkq-Su.jpg")`,
-  1: "black",
-  "-1": "red",
+  1: `url("https://i.postimg.cc/jjp9H8G9/egyptian-anubis-illustration-43623-798.jpg")`,
+  "-1": `url("https://i.postimg.cc/GhgXP7DQ/e80d9df3009f1e7b3a51a79cec61ae3e.jpg")`,
 };
 
 const NAMES = {
-  1: "Pyramid",
-  "-1": "Beetle",
+  1: "Anubis",
+  "-1": "Cleopatra",
 };
 
 /*----- state variables -----*/
@@ -37,11 +37,11 @@ function init() {
   // 2D array, 0 represents no mark at current position -- turn this -90 deg
   board = [
     [0, 0, 0], // col 0
-    [0, 0, 0], // col 1
-    [0, 0, 0], // col 2
+    [0, 1, 0], // col 1
+    [0, -1, 0], // col 2
     //  r0 r1 r2
   ];
-  winner = null; // indicates that there's no winner yet and keeps the game going
+  winner = 1; // indicates that there's no winner yet and keeps the game going
   render();
 }
 
@@ -73,6 +73,7 @@ renderBoard();
 function renderTurn() {
   if (winner === "T") {
   } else if (winner === 1 || winner === -1) {
+    turnMessage.innerHTML = `<span style ="color:#ffd700">Player ${NAMES[winner]} has won</span>`;
   } else {
     turnMessage.innerHTML = `${NAMES[turn]}'s turn`;
   }

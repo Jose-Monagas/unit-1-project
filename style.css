@@ -59,3 +59,11 @@ button {
   background-image: url("https://i.postimg.cc/2jTxSg36/ancient-egypt-eye-of-horus-eye-of-providence-pyramid-texts-png-favpng-1c-Mxbhv-TLNniwq-F8z-Gu-FSkq-Su.jpg");
   background-size: cover;
 }
+
+#turn h1 {
+  background-color: goldenrod;
+}
+
+#rules-section p {
+  background-color: goldenrod;
+}
