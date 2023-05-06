@@ -54,7 +54,6 @@ function render() {
   // render() transfers the state of the app to the DOM
   renderBoard();
   renderTurn();
-  renderControls();
 }
 
 function renderBoard() {
@@ -94,7 +93,7 @@ function handleMove(event) {
     board[col][row] = turn;
     render();
     winner = checkWinner();
-    console.log(winner);
+    // console.log(winner);
     turn *= -1;
   }
 }
@@ -143,4 +142,22 @@ function checkRows() {
 
 function checkDiagonal() {
   // a diagonal wins means that the sum of [(0,0),(1,1),(2,2)] or [(2,0),(1,1),(0,2)] === 3 or -3
+  const diagonals = [
+    [board[0][0], board[1][1], board[2][2]],
+    [board[2][0], board[1][1], board[0][2]],
+  ];
+
+  const sums = diagonals.map(function (col) {
+    return col.reduce(function (total, num) {
+      return total + num;
+    }, 0);
+    return sums;
+  });
+
+  if (sums[0] === 3 || sums[1] === 3) {
+    return true;
+  } else if (sums[0] === -3 || sums[1] === 3) {
+    return true;
+  }
+  return false;
 }
