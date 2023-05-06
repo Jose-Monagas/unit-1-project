@@ -41,7 +41,7 @@ function init() {
     [0, -1, 0], // col 2
     //  r0 r1 r2
   ];
-  winner = 1; // indicates that there's no winner yet and keeps the game going
+  winner = null; // indicates that there's no winner yet and keeps the game going
   render();
 }
 
@@ -72,6 +72,7 @@ renderBoard();
 // This function will update current player's turn in the browser
 function renderTurn() {
   if (winner === "T") {
+    turnMessage.innerText = "It's a tie!!!";
   } else if (winner === 1 || winner === -1) {
     turnMessage.innerHTML = `<span style ="color:#ffd700">Player ${NAMES[winner]} has won</span>`;
   } else {
