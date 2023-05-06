@@ -161,7 +161,7 @@ function checkDiagonal() {
   //   evaluate the sums array to check if any player connected 3 marks, if true then that player is a winner
   if (sums[0] === 3 || sums[1] === 3) {
     return true;
-  } else if (sums[0] === -3 || sums[1] === 3) {
+  } else if (sums[0] === -3 || sums[1] === -3) {
     return true;
   }
   return false;
