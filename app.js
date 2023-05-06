@@ -23,6 +23,11 @@ let winner; // this will be set to null, 1, -1, or 'T'
 const turnMessage = document.querySelector("#turn h1");
 
 /*----- event listeners -----*/
+document.querySelector("button").addEventListener("click", init);
+const tiles = document.querySelectorAll(".tile");
+tiles.forEach(function (tile) {
+  tile.addEventListener("click", handleMove);
+});
 
 /*----- functions -----*/
 
@@ -37,8 +42,8 @@ function init() {
   // 2D array, 0 represents no mark at current position -- turn this -90 deg
   board = [
     [0, 0, 0], // col 0
-    [0, 1, 0], // col 1
-    [0, -1, 0], // col 2
+    [0, 0, 0], // col 1
+    [0, 0, 0], // col 2
     //  r0 r1 r2
   ];
   winner = null; // indicates that there's no winner yet and keeps the game going
@@ -58,7 +63,7 @@ function renderBoard() {
     // iterate through the each individual array and get a hold of each element
     arr.forEach(function (elem, idx) {
       // create a variable that will match the id assigned to every div in the board
-      const boardId = `c${index}r${idx}`; // gives me all ids --> c0r0
+      const boardId = `${index}-${idx}`; // gives me all ids --> c0r0
       //   select the id elements using DOM
       const boardEl = document.getElementById(boardId);
       //   user markers object to look up the color we should update the background marker div to
@@ -80,4 +85,62 @@ function renderTurn() {
   }
 }
 
-function renderControls() {}
+function handleMove(event) {
+  // Get the column and the row of current click from the board
+  const [col, row] = event.target.id.split("-").map(Number);
+  // at this point we have the column and row of the tile clicked to update the background image of the board
+  // now we have to make sure that the current column and row are blank before changing the bg
+  if (board[col][row] === 0) {
+    board[col][row] = turn;
+    render();
+    winner = checkWinner();
+    console.log(winner);
+    turn *= -1;
+  }
+}
+
+function checkWinner() {
+  // player wins the round if they have successfully added 3 of their marks in a row
+  const columnWin = checkColumns();
+  const rowWin = checkRows();
+  const diagonalWin = checkDiagonal();
+  //   will return whichever is truthy, if none is truthy then it returns false
+  return columnWin || rowWin || diagonalWin;
+}
+
+function checkColumns() {
+  // player wins the round if they have successfully added 3 of their marks in a row
+  board.forEach(function (col) {
+    const sum = col.reduce(function (total, num) {
+      return total + num;
+    }, 0);
+    if (sum === 3) {
+      return true;
+    } else if (sum === -3) {
+      return true;
+    }
+  });
+  return false;
+}
+
+function checkRows() {
+  // player wins the round if they have successfully added 3 of their marks in a row
+
+  for (let r = 0; r < board.length; r++) {
+    let sum = 0;
+    for (let c = 0; c < board[r].length; c++) {
+      //   console.log(c, r);
+      sum += board[c][r];
+    }
+    if (sum === 3) {
+      return true;
+    } else if (sum === -3) {
+      return true;
+    }
+  }
+  return false;
+}
+
+function checkDiagonal() {
+  // a diagonal wins means that the sum of [(0,0),(1,1),(2,2)] or [(2,0),(1,1),(0,2)] === 3 or -3
+}
