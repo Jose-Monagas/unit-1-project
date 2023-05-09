@@ -91,10 +91,10 @@ function handleMove(event) {
   // now we have to make sure that the current column and row are blank before changing the bg
   if (board[col][row] === 0) {
     board[col][row] = turn;
-    render();
     winner = checkWinner();
     // console.log(winner);
     turn *= -1;
+    render();
   }
 }
 
