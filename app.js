@@ -11,16 +11,25 @@ const NAMES = {
   "-1": "Cleopatra",
 };
 
+const gameStates = {
+  winner: 1,
+  tie: 2,
+};
+
 /*----- state variables -----*/
 // Declare the application-wide state variables
 
 let turn; // will be 1 or -1
 let board; // this will be a 2d array
-let winner; // this will be set to null, 1, -1, or 'T'
+let winner; // this will be set to null (in progress), 1 / -1 (the winner), or 0 (tie)
+let anubisWins = 0;
+let cleopatraWins = 0;
 
 /*----- cached elements  -----*/
 // get a hold of the h1 tag that contains the message with player turn
 const turnMessage = document.querySelector("#turn h1");
+const anubisScore = document.querySelector("#anubis-score h2");
+const cleopatraScore = document.querySelector("#cleopatra-score h2");
 
 /*----- event listeners -----*/
 document.querySelector("button").addEventListener("click", init);
@@ -28,6 +37,8 @@ const tiles = document.querySelectorAll(".tile");
 tiles.forEach(function (tile) {
   tile.addEventListener("click", handleMove);
 });
+
+/* Modal Winner 3 out of 5 */
 
 /*----- functions -----*/
 
@@ -75,10 +86,10 @@ renderBoard();
 
 // This function will update current player's turn in the browser
 function renderTurn() {
-  if (winner === "T") {
+  if (winner === 0) {
     turnMessage.innerText = "It's a tie!!!";
   } else if (winner === 1 || winner === -1) {
-    turnMessage.innerHTML = `<span style ="color:#ffd700">Player ${NAMES[winner]} has won</span>`;
+    turnMessage.innerHTML = `<span style ="color:#ffd700">Player ${NAMES[winner]} has won this round</span>`;
   } else {
     turnMessage.innerHTML = `${NAMES[turn]}'s turn`;
   }
@@ -91,53 +102,75 @@ function handleMove(event) {
   // now we have to make sure that the current column and row are blank before changing the bg
   if (board[col][row] === 0) {
     board[col][row] = turn;
-    winner = checkWinner();
-    // console.log(winner);
-    turn *= -1;
+    checkWinner();
+    console.log(winner);
+    // if we have a winner then stop the game
+    if (winner === 1) {
+      anubisWins++;
+      anubisScore.textContent = anubisWins;
+    } else if (winner === -1) {
+      cleopatraWins++;
+      cleopatraScore.textContent = cleopatraWins;
+    } else {
+      turn *= -1;
+    }
+    if (anubisScore === 1) {
+      // pop up modal player 1 has won
+    } else if (cleopatraScore === 1) {
+      // pop up modal player -1 has won
+    }
     render();
   }
 }
 
 function checkWinner() {
   // player wins the round if they have successfully added 3 of their marks in a row
-  const columnWin = checkColumns();
-  const rowWin = checkRows();
-  const diagonalWin = checkDiagonal();
-  //   will return whichever is truthy, if none is truthy then it returns false
-  return columnWin || rowWin || diagonalWin;
+  checkColumns();
+  checkRows();
+  checkDiagonal();
+  checkTie();
 }
 
 function checkColumns() {
   // player wins the round if they have successfully added 3 of their marks in a row
+  // create variable that holds whether or not there is a winner in any columm
   board.forEach(function (col) {
     const sum = col.reduce(function (total, num) {
       return total + num;
     }, 0);
-    if (sum === 3) {
-      return true;
-    } else if (sum === -3) {
-      return true;
+    if (sum === 3 || sum === -3) {
+      winner = turn;
     }
   });
-  return false;
 }
 
 function checkRows() {
   // player wins the round if they have successfully added 3 of their marks in a row
-
   for (let r = 0; r < board.length; r++) {
     let sum = 0;
     for (let c = 0; c < board[r].length; c++) {
-      //   console.log(c, r);
       sum += board[c][r];
     }
-    if (sum === 3) {
-      return true;
-    } else if (sum === -3) {
-      return true;
+    if (sum === 3 || sum === -3) {
+      winner = turn;
     }
   }
-  return false;
+}
+
+function checkTie() {
+  let numZeros = 0;
+  for (let r = 0; r < board.length; r++) {
+    for (let c = 0; c < board[r].length; c++) {
+      //   console.log(board[c][r]);
+      if (board[c][r] === 0) {
+        numZeros += 1;
+      }
+    }
+  }
+  //   console.log({ numZeros });
+  if (numZeros === 0) {
+    winner = 0;
+  }
 }
 
 function checkDiagonal() {
@@ -160,9 +193,8 @@ function checkDiagonal() {
 
   //   evaluate the sums array to check if any player connected 3 marks, if true then that player is a winner
   if (sums[0] === 3 || sums[1] === 3) {
-    return true;
+    winner = turn;
   } else if (sums[0] === -3 || sums[1] === -3) {
-    return true;
+    winner = turn;
   }
-  return false;
 }
