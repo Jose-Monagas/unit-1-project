@@ -85,3 +85,54 @@ button {
 }
 
 /*  modal */
+/* Hide the modal by default */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+/* Center the modal content vertically and horizontally */
+.modal-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #fefefe;
+  margin: 15% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+  max-width: 400px;
+  text-align: center;
+}
+
+/* Style the modal heading */
+.modal-content h2 {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+/* Style the modal paragraph */
+.modal-content p {
+  font-size: 18px;
+  margin-bottom: 20px;
+}
+
+/* Style the close button */
+.modal-close {
+  color: #aaaaaa;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.modal-close:hover {
+  color: #000;
+}
