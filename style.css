@@ -67,3 +67,21 @@ button {
 #rules-section p {
   background-color: goldenrod;
 }
+
+.score-wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 2vmin;
+  /* align-items: center;
+  letter-spacing: 1 vmin; */
+}
+
+.button-wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 3vmin;
+}
+
+/*  modal */

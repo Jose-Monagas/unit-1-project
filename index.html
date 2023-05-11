@@ -25,13 +25,13 @@
     <div id="turn">
       <h1>It's Anubis's turn</h1>
     </div>
-    <section class="score">
-      <div id="anubis-score">
-        <h1>Anubis' Score</h1>
+    <section class="score-wrapper">
+      <div id="anubis-score" class="score">
+        <h1>Anubis' Score:</h1>
         <h2>0</h2>
       </div>
-      <div id="cleopatra-score">
-        <h1>Cleopatra's Score</h1>
+      <div id="cleopatra-score" class="score">
+        <h1>Cleopatra's Score:</h1>
         <h2>0</h2>
       </div>
     </section>
@@ -48,7 +48,9 @@
       <div id="1-2" class="tile"></div>
       <div id="2-2" class="tile"></div>
     </section>
-
-    <button>PLAY AGAIN</button>
+    <div class="button-wrapper">
+      <button id="round">NEXT ROUND</button>
+      <button id="restart">RESTART GAME</button>
+    </div>
   </body>
 </html>

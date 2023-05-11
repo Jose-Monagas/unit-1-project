@@ -22,8 +22,8 @@ const gameStates = {
 let turn; // will be 1 or -1
 let board; // this will be a 2d array
 let winner; // this will be set to null (in progress), 1 / -1 (the winner), or 0 (tie)
-let anubisWins = 0;
-let cleopatraWins = 0;
+let anubisWins = 0; // this holds the num of times this player has won
+let cleopatraWins = 0; // this holds the num of times this player has won
 
 /*----- cached elements  -----*/
 // get a hold of the h1 tag that contains the message with player turn
@@ -33,6 +33,8 @@ const cleopatraScore = document.querySelector("#cleopatra-score h2");
 
 /*----- event listeners -----*/
 document.querySelector("button").addEventListener("click", init);
+const restartBttn = document.getElementById("restart");
+restartBttn.addEventListener("click", restartGame);
 const tiles = document.querySelectorAll(".tile");
 tiles.forEach(function (tile) {
   tile.addEventListener("click", handleMove);
@@ -197,4 +199,11 @@ function checkDiagonal() {
   } else if (sums[0] === -3 || sums[1] === -3) {
     winner = turn;
   }
+}
+
+function restartGame() {
+  init();
+  anubisWins = 0;
+  cleopatraWins = 0;
+  render();
 }
