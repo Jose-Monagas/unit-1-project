@@ -41,6 +41,29 @@ tiles.forEach(function (tile) {
 });
 
 /* Modal Winner 3 out of 5 */
+// Get the modal element
+// Get the modal and close button elements
+const modal = document.getElementById("modal");
+const closeModalButton = document.getElementById("close-modal");
+
+// Function to show the modal
+function showModal() {
+  modal.style.display = "block";
+}
+
+// Function to close the modal
+function closeModal() {
+  modal.style.display = "none";
+}
+
+closeModalButton.addEventListener("click", closeModal);
+
+// Event listener to close the modal when clicking outside the modal content
+modal.addEventListener("click", function (event) {
+  if (event.target === modal) {
+    closeModal();
+  }
+});
 
 /*----- functions -----*/
 
@@ -116,10 +139,12 @@ function handleMove(event) {
     } else {
       turn *= -1;
     }
-    if (anubisScore === 1) {
+    if (anubisWins === 3) {
       // pop up modal player 1 has won
-    } else if (cleopatraScore === 1) {
+      showModal();
+    } else if (cleopatraWins === 3) {
       // pop up modal player -1 has won
+      showModal();
     }
     render();
   }
