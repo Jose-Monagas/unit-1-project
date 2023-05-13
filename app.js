@@ -16,6 +16,15 @@ const gameStates = {
   tie: 2,
 };
 
+const roundsToWin = 3;
+const maxRounds = 5;
+
+const modalBackground = {
+  anubis: `url("https://i.postimg.cc/jjp9H8G9/egyptian-anubis-illustration-43623-798.jpg")`,
+  cleopatra: `url("https://i.postimg.cc/GhgXP7DQ/e80d9df3009f1e7b3a51a79cec61ae3e.jpg")`,
+  tie: `url("https://i.postimg.cc/vmjFnyhC/z6ebby06jkha1.jpg")`,
+};
+
 /*----- state variables -----*/
 // Declare the application-wide state variables
 
@@ -24,6 +33,8 @@ let board; // this will be a 2d array
 let winner; // this will be set to null (in progress), 1 / -1 (the winner), or 0 (tie)
 let anubisWins = 0; // this holds the num of times this player has won
 let cleopatraWins = 0; // this holds the num of times this player has won
+let gameOver = false;
+let completedRounds = 0;
 
 /*----- cached elements  -----*/
 // get a hold of the h1 tag that contains the message with player turn
@@ -32,7 +43,8 @@ const anubisScore = document.querySelector("#anubis-score h2");
 const cleopatraScore = document.querySelector("#cleopatra-score h2");
 
 /*----- event listeners -----*/
-document.querySelector("button").addEventListener("click", init);
+const nextRoundBttn = document.querySelector("button");
+nextRoundBttn.addEventListener("click", init);
 const restartBttn = document.getElementById("restart");
 restartBttn.addEventListener("click", restartGame);
 const tiles = document.querySelectorAll(".tile");
@@ -40,14 +52,19 @@ tiles.forEach(function (tile) {
   tile.addEventListener("click", handleMove);
 });
 
-/* Modal Winner 3 out of 5 */
-// Get the modal element
+/* Modal */
+
 // Get the modal and close button elements
 const modal = document.getElementById("modal");
+const headerContent = document.querySelector(".modal-content h2");
+const modalContent = document.querySelector(".modal-content p");
 const closeModalButton = document.getElementById("close-modal");
 
 // Function to show the modal
-function showModal() {
+function showModal(header, displayText, backgroundImage) {
+  headerContent.innerText = header;
+  modalContent.innerText = displayText;
+  modal.style.backgroundImage = backgroundImage;
   modal.style.display = "block";
 }
 
@@ -70,8 +87,6 @@ modal.addEventListener("click", function (event) {
 // write and invoke the init() function that will initialize the state variables, the last line in init() should call render() to render that state to the DOM
 // for the first time
 
-init();
-
 function init() {
   turn = 1; // first player to start the game
 
@@ -90,6 +105,8 @@ function render() {
   // render() transfers the state of the app to the DOM
   renderBoard();
   renderTurn();
+  anubisScore.textContent = anubisWins;
+  cleopatraScore.textContent = cleopatraWins;
 }
 
 function renderBoard() {
@@ -107,7 +124,6 @@ function renderBoard() {
     });
   });
 }
-renderBoard();
 
 // This function will update current player's turn in the browser
 function renderTurn() {
@@ -128,25 +144,47 @@ function handleMove(event) {
   if (board[col][row] === 0) {
     board[col][row] = turn;
     checkWinner();
-    console.log(winner);
     // if we have a winner then stop the game
     if (winner === 1) {
       anubisWins++;
+      completedRounds++;
       anubisScore.textContent = anubisWins;
     } else if (winner === -1) {
       cleopatraWins++;
+      completedRounds++;
       cleopatraScore.textContent = cleopatraWins;
+    } else if (winner === 0) {
+      completedRounds++;
     } else {
       turn *= -1;
     }
-    if (anubisWins === 3) {
-      // pop up modal player 1 has won
-      showModal();
-    } else if (cleopatraWins === 3) {
-      // pop up modal player -1 has won
-      showModal();
-    }
+    checkGameStatus();
     render();
+  }
+}
+
+function checkGameStatus() {
+  if (
+    anubisWins === roundsToWin ||
+    cleopatraWins === roundsToWin ||
+    completedRounds === maxRounds
+  ) {
+    if (anubisWins === roundsToWin) {
+      // pop up modal player 1 has won
+      showModal("Congratulations", "Anubis Wins!!!", modalBackground.anubis);
+    } else if (cleopatraWins === roundsToWin) {
+      // pop up modal player -1 has won
+      showModal(
+        "Congratulations",
+        "Cleopatra Wins!!!",
+        modalBackground.cleopatra
+      );
+    } else if (completedRounds === maxRounds) {
+      showModal("It's a tie!", "TRY AGAIN", modalBackground.tie);
+    }
+    nextRoundBttn.disabled = true;
+    nextRoundBttn.style.backgroundColor = "darkgray";
+    nextRoundBttn.style.backgroundImage = "none";
   }
 }
 
@@ -230,5 +268,16 @@ function restartGame() {
   init();
   anubisWins = 0;
   cleopatraWins = 0;
+  completedRounds = 0;
+  nextRoundBttn.disabled = false;
+  nextRoundBttn.style.backgroundImage = `url("https://i.postimg.cc/2jTxSg36/ancient-egypt-eye-of-horus-eye-of-providence-pyramid-texts-png-favpng-1c-Mxbhv-TLNniwq-F8z-Gu-FSkq-Su.jpg")`;
   render();
 }
+
+init();
+renderBoard();
+showModal(
+  "Welcome to the TIC TAC TOE",
+  "Once upon a time, in the mystical land of ancient Egypt, a captivating story unfolded, revealing the origin of the game known as Tic Tac Toe. Legend had it that the game was bestowed upon the people of Egypt by the powerful Pharaohs, blessed by the gods themselves.",
+  `url("https://i.postimg.cc/FRfRkckv/38652-free-download-ancient-egypt-capture-the-mind-2500x1767.jpg")`
+);
