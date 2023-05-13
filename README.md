@@ -22,6 +22,10 @@ A game in which two players alternately put their marks in compartments of a fig
 
 ![cleopatra wins](https://i.postimg.cc/ryxZLXVG/Screenshot-2023-05-13-at-1-19-14-AM.png)
 
+### It's a tie
+
+![tie](https://i.postimg.cc/Rhs0n1kk/Screenshot-2023-05-13-at-9-32-55-AM.png)
+
 ### TECHONOLOGIES USED
 
 - HTML
