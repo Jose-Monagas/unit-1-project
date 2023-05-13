@@ -1,11 +1,12 @@
 /*----- constants -----*/
-// create an object that will hold any possible value that we can have in our board and its pertaining mark (either pyramid, beetle or nothing)
+// MARKS object contains the background image pertaining to each player or empty position at the board
 const MARKS = {
   0: `url("https://i.postimg.cc/2jTxSg36/ancient-egypt-eye-of-horus-eye-of-providence-pyramid-texts-png-favpng-1c-Mxbhv-TLNniwq-F8z-Gu-FSkq-Su.jpg")`,
   1: `url("https://i.postimg.cc/jjp9H8G9/egyptian-anubis-illustration-43623-798.jpg")`,
   "-1": `url("https://i.postimg.cc/GhgXP7DQ/e80d9df3009f1e7b3a51a79cec61ae3e.jpg")`,
 };
 
+// Display the players name in the turn <h1>
 const NAMES = {
   1: "Anubis",
   "-1": "Cleopatra",
@@ -19,6 +20,7 @@ const gameStates = {
 const roundsToWin = 3;
 const maxRounds = 5;
 
+// backgrounds for the modal
 const modalBackground = {
   anubis: `url("https://i.postimg.cc/jjp9H8G9/egyptian-anubis-illustration-43623-798.jpg")`,
   cleopatra: `url("https://i.postimg.cc/GhgXP7DQ/e80d9df3009f1e7b3a51a79cec61ae3e.jpg")`,
@@ -162,14 +164,16 @@ function handleMove(event) {
     render();
   }
 }
-
+// to explain
+// The game ends when these 3 condition happen
 function checkGameStatus() {
   if (
-    anubisWins === roundsToWin ||
-    cleopatraWins === roundsToWin ||
-    completedRounds === maxRounds
+    anubisWins === roundsToWin || //3
+    cleopatraWins === roundsToWin || //3
+    completedRounds === maxRounds //5
   ) {
     if (anubisWins === roundsToWin) {
+      // anubisWins --> var that holds the num of times this player has won
       // pop up modal player 1 has won
       showModal("Congratulations", "Anubis Wins!!!", modalBackground.anubis);
     } else if (cleopatraWins === roundsToWin) {
@@ -222,17 +226,16 @@ function checkRows() {
   }
 }
 
+// this function checks whether there are spots or zeros left in the board
 function checkTie() {
   let numZeros = 0;
   for (let r = 0; r < board.length; r++) {
     for (let c = 0; c < board[r].length; c++) {
-      //   console.log(board[c][r]);
       if (board[c][r] === 0) {
         numZeros += 1;
       }
     }
   }
-  //   console.log({ numZeros });
   if (numZeros === 0) {
     winner = 0;
   }
