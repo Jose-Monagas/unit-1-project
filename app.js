@@ -12,11 +12,6 @@ const NAMES = {
   "-1": "Cleopatra",
 };
 
-const gameStates = {
-  winner: 1,
-  tie: 2,
-};
-
 const roundsToWin = 3;
 const maxRounds = 5;
 
@@ -165,12 +160,12 @@ function handleMove(event) {
   }
 }
 // to explain
-// The game ends when these 3 condition happen
+// The game ends when one of these 3 condition happens
 function checkGameStatus() {
   if (
-    anubisWins === roundsToWin || //3
-    cleopatraWins === roundsToWin || //3
-    completedRounds === maxRounds //5
+    anubisWins === roundsToWin || //3 - anubis wins
+    cleopatraWins === roundsToWin || //3 - cleopatra wins
+    completedRounds === maxRounds // all 5 rounds are complete but no player won 3 rounds
   ) {
     if (anubisWins === roundsToWin) {
       // anubisWins --> var that holds the num of times this player has won
@@ -186,6 +181,8 @@ function checkGameStatus() {
     } else if (completedRounds === maxRounds) {
       showModal("It's a tie!", "TRY AGAIN", modalBackground.tie);
     }
+    // deactivate next round button so the re-start game is the only button available
+    // this button is then reactivated after the re-start game button is clicked
     nextRoundBttn.disabled = true;
     nextRoundBttn.style.backgroundColor = "darkgray";
     nextRoundBttn.style.backgroundImage = "none";
