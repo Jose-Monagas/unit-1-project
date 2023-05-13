@@ -42,6 +42,6 @@ www.josemonagas.com
 
 ### NEXT STEPS
 
-- Style background image of the modals so they cover the entire screen without wrapping
-- Add the computer as a second player option
-- Add some audio effects
+- Style background image of the modals so they cover the entire screen without wrapping.
+- Add the computer as a second player option.
+- Add some audio effects.
