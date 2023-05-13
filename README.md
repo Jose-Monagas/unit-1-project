@@ -4,6 +4,10 @@
 
 A game in which two players alternately put their marks in compartments of a figure formed by two vertical lines crossing two horizontal lines and each tries to get a row of three marks before the opponent does. In this version a player needs to win 3 rounds out 5 consecutive rounds to win the game.
 
+### PSEUDOCODE
+
+[link to file](https://replit.com/@Jose-Monagas/W05D03-Practical-HW)
+
 ### SCREENSHOTS
 
 #### Home page
